@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Level 1 - Learning Common Trees Found in India</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        text-align: center;
+        color: #333;
+      }
+      .container {
+        margin: 20px auto;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 400px;
+        background-color: #fff;
+      }
+      .question {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      input {
+        font-size: 24px;
+        padding: 10px;
+        width: 80%;
+        margin-bottom: 20px;
+      }
+      button {
+        font-size: 24px;
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .feedback {
+        font-size: 20px;
+        margin-top: 20px;
+      }
+      footer {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+      .logo {
+        width: 80px; /* Adjust size as needed */
+        margin-top: 10px;
+      }
+      .quiz-title {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .image-frame {
+        width: 80%;
+        max-width: 300px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 0 auto 20px;
+      }
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="quiz-title">
+        English Level 1 - Learning Common Trees Found in India
+      </div>
+      <div class="image-frame">
+        <img id="treeImage" src="" alt="Tree Image" />
+      </div>
+      <div class="question" id="question"></div>
+      <input type="text" id="answer" placeholder="Type your answer here" />
+      <br />
+      <button onclick="checkAnswer()">Submit</button>
+      <div class="feedback" id="feedback"></div>
+    </div>
+    <footer>
+      <img src="logo.png" alt="Ananda Sagara Logo" class="logo" /><br />
+      anandasagara.org
+    </footer>
+    <script>
+      const questions = [
+        {
+          question: "What tree is this?",
+          answer: "mango",
+          image: "mango.jfif",
+        },
+        { question: "What tree is this?", answer: "neem", image: "neem.jfif" },
+        {
+          question: "What tree is this?",
+          answer: "banyan",
+          image: "banyan.jfif",
+        },
+        {
+          question: "What tree is this?",
+          answer: "peepal",
+          image: "peepal.jfif",
+        },
+        {
+          question: "What tree is this?",
+          answer: "gulmohar",
+          image: "gulmohar.jpg",
+        },
+        { question: "What tree is this?", answer: "teak", image: "teak.jpg" },
+        {
+          question: "What tree is this?",
+          answer: "sandalwood",
+          image: "sandalwood.jpg",
+        },
+        {
+          question: "What tree is this?",
+          answer: "eucalyptus",
+          image: "eucalyptus.jpg",
+        },
+        { question: "What tree is this?", answer: "sal", image: "sal.jpg" },
+        {
+          question: "What tree is this?",
+          answer: "tamarind",
+          image: "tamarind.jfif",
+        },
+      ];
+
+      let currentQuestion = 0;
+
+      function speak(text) {
+        const msg = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(msg);
+      }
+
+      function showQuestion() {
+        document.getElementById("treeImage").src =
+          questions[currentQuestion].image;
+        document.getElementById("question").textContent =
+          questions[currentQuestion].question;
+        document.getElementById("answer").value = "";
+        document.getElementById("feedback").textContent = "";
+        speak(questions[currentQuestion].question);
+      }
+
+      function checkAnswer() {
+        const userAnswer = document
+          .getElementById("answer")
+          .value.toLowerCase();
+        if (userAnswer === questions[currentQuestion].answer.toLowerCase()) {
+          const answerText = questions[currentQuestion].answer;
+          let feedbackText = `Correct! This is ${answerText}. `;
+          feedbackText += `${answerText.split("").join(" ")}.`;
+          document.getElementById("feedback").textContent = feedbackText;
+          speak(feedbackText);
+
+          // Delay before moving to the next question
+          setTimeout(nextQuestion, 6000); // Delay of 6 seconds
+        } else {
+          document.getElementById("feedback").textContent = "Try again!";
+          speak("Try again!");
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          showQuestion();
+        } else {
+          document.getElementById("feedback").textContent = "Quiz Completed!";
+          speak("Quiz Completed!");
+        }
+      }
+
+      showQuestion();
+    </script>
+  </body>
+</html>

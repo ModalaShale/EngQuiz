@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Level 1 - Learning Colors</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        text-align: center;
+        color: #333;
+      }
+      .container {
+        margin: 20px auto;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 400px;
+        background-color: #fff;
+      }
+      .question {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      input {
+        font-size: 24px;
+        padding: 10px;
+        width: 80%;
+        margin-bottom: 20px;
+      }
+      button {
+        font-size: 24px;
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .feedback {
+        font-size: 20px;
+        margin-top: 20px;
+      }
+      footer {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+      .logo {
+        width: 80px; /* Adjust size as needed */
+        margin-top: 10px;
+      }
+      .quiz-title {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .image-frame {
+        width: 80%;
+        max-width: 300px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 0 auto 20px;
+      }
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="quiz-title">English Level 1 - Learning Colors</div>
+      <div class="image-frame">
+        <img id="colorImage" src="" alt="Color Image" />
+      </div>
+      <div class="question" id="question"></div>
+      <input type="text" id="answer" placeholder="Type your answer here" />
+      <br />
+      <button onclick="checkAnswer()">Submit</button>
+      <div class="feedback" id="feedback"></div>
+    </div>
+    <footer>
+      <img src="logo.png" alt="Ananda Sagara Logo" class="logo" /><br />
+      anandasagara.org
+    </footer>
+    <script>
+      const questions = [
+        { question: "What color is this?", answer: "red", image: "red.jpg" },
+        { question: "What color is this?", answer: "blue", image: "blue.jpg" },
+        {
+          question: "What color is this?",
+          answer: "green",
+          image: "green.jpg",
+        },
+        {
+          question: "What color is this?",
+          answer: "yellow",
+          image: "yellow.jpg",
+        },
+        {
+          question: "What color is this?",
+          answer: "orange",
+          image: "orange.jpg",
+        },
+        {
+          question: "What color is this?",
+          answer: "purple",
+          image: "purple.jpg",
+        },
+        { question: "What color is this?", answer: "pink", image: "pink.jpg" },
+        {
+          question: "What color is this?",
+          answer: "brown",
+          image: "brown.jpg",
+        },
+        {
+          question: "What color is this?",
+          answer: "black",
+          image: "black.jpg",
+        },
+        {
+          question: "What color is this?",
+          answer: "white",
+          image: "white.jpg",
+        },
+      ];
+
+      let currentQuestion = 0;
+
+      function speak(text) {
+        const msg = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(msg);
+      }
+
+      function showQuestion() {
+        document.getElementById("colorImage").src =
+          questions[currentQuestion].image;
+        document.getElementById("question").textContent =
+          questions[currentQuestion].question;
+        document.getElementById("answer").value = "";
+        document.getElementById("feedback").textContent = "";
+        speak(questions[currentQuestion].question);
+      }
+
+      function checkAnswer() {
+        const userAnswer = document
+          .getElementById("answer")
+          .value.toLowerCase();
+        if (userAnswer === questions[currentQuestion].answer.toLowerCase()) {
+          const answerText = questions[currentQuestion].answer;
+          let feedbackText = `Correct! The color is ${answerText}. `;
+          feedbackText += `${answerText.split("").join(" ")} `;
+          document.getElementById("feedback").textContent = feedbackText;
+          speak(feedbackText);
+
+          // Delay before moving to the next question
+          setTimeout(nextQuestion, 6000); // Delay of 6 seconds
+        } else {
+          document.getElementById("feedback").textContent = "Try again!";
+          speak("Try again!");
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          showQuestion();
+        } else {
+          document.getElementById("feedback").textContent = "Quiz Completed!";
+          speak("Quiz Completed!");
+        }
+      }
+
+      showQuestion();
+    </script>
+  </body>
+</html>
