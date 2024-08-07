@@ -1,6 +1,6 @@
 body {
     font-family: 'Comic Sans MS', cursive, sans-serif;
-    background-color: #f0f8ff;
+    background-color: #e9d985;
     text-align: center;
     padding: 20px;
 }
@@ -13,7 +13,7 @@ h1 {
     justify-content: center;
 }
 .button {
-    background-color: #ffcc00;
+    background-color: #001427;
     border: none;
     color: white;
     padding: 20px;
